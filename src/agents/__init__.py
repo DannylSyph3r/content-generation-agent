@@ -1,6 +1,6 @@
 """
 Agent definitions for Smart Routing Pipeline
-Includes routing, content, research, and quality agents
+Includes routing, content, research, and quality agents with enhanced feedback loop
 """
 
 from .routing import smart_router
@@ -11,7 +11,7 @@ from .content import (
     blog_content_specialist
 )
 from .research import research_agent
-from .quality import quality_synthesizer
+from .quality import quality_synthesizer, quality_checker, content_regenerator
 
 __all__ = [
     "smart_router",
@@ -20,5 +20,7 @@ __all__ = [
     "instagram_content_specialist",
     "blog_content_specialist",
     "research_agent",
-    "quality_synthesizer"
+    "quality_synthesizer",
+    "quality_checker",
+    "content_regenerator"
 ]
