@@ -1,16 +1,16 @@
 """
-Agentic Patterns Demonstration
-Interactive showcase of routing, parallelization, and reflection patterns
+Smart Routing Pipeline Demonstration
+Interactive showcase of intelligent platform selection with conditional execution
 """
 import asyncio
 import time
 from typing import Dict, Any, List
 from src.config.environment import check_environment
-from src.pipelines.research_enhanced import create_content
+from src.pipelines.smart_routing import create_smart_routed_content
 
 
-class AgenticPatternsDemo:
-    """Interactive demonstration of agentic design patterns."""
+class SmartRoutingDemo:
+    """Interactive demonstration of smart routing pipeline."""
     
     def __init__(self):
         """Initialize demo with predefined scenarios."""
@@ -18,110 +18,116 @@ class AgenticPatternsDemo:
             {
                 "request": "Create LinkedIn content about the future of AI in business",
                 "description": "Professional B2B content with thought leadership",
-                "patterns_highlighted": ["routing", "parallelization", "reflection", "research"]
+                "expected_platforms": ["LinkedIn"],
+                "features_highlighted": ["intelligent_platform_selection", "research_enhancement", "quality_feedback"]
             },
             {
-                "request": "Write Instagram and X content about productivity hacks for entrepreneurs",
+                "request": "Write Instagram and X content about productivity hacks for entrepreneurs", 
                 "description": "Multi-platform content with different tones",
-                "patterns_highlighted": ["routing", "parallelization", "reflection"]
+                "expected_platforms": ["Instagram", "X/Twitter"],
+                "features_highlighted": ["multi_platform_routing", "conditional_execution", "platform_optimization"]
             },
             {
                 "request": "Generate a comprehensive blog post about sustainable technology trends",
-                "description": "Long-form content with deep analysis",
-                "patterns_highlighted": ["routing", "research", "reflection"]
+                "description": "Long-form content with deep analysis", 
+                "expected_platforms": ["Blog"],
+                "features_highlighted": ["smart_routing", "research_enhancement", "quality_assessment"]
             }
         ]
     
     def print_header(self):
         """Print demo header and explanation."""
         print("\n" + "=" * 80)
-        print("AGENTIC DESIGN PATTERNS - COMPREHENSIVE DEMONSTRATION")
+        print("SMART ROUTING PIPELINE - COMPREHENSIVE DEMONSTRATION")
         print("=" * 80)
         print()
-        print("This demo showcases three core agentic design patterns:")
+        print("This demo showcases the Smart Routing Pipeline featuring:")
         print()
-        print("1. ROUTING PATTERN")
-        print("   - Smart request analysis and platform determination")
-        print("   - Intelligent content strategy selection")
-        print("   - Optimal platform matching")
+        print("INTELLIGENT PLATFORM SELECTION")
+        print("   • Analyzes requests to determine optimal platforms")
+        print("   • Conditional execution - only generates for selected platforms")
+        print("   • Handles clarification requests for ambiguous inputs")
         print()
-        print("2. PARALLELIZATION PATTERN")
-        print("   - Multiple specialized agents for different platforms")
-        print("   - Concurrent content generation (sequential for free tier)")
-        print("   - Platform-specific optimization")
+        print("SMART CONTENT GENERATION")
+        print("   • Platform-specific specialists for optimized content")
+        print("   • Sequential generation (optimized for free tier)")
+        print("   • Research-enhanced content with current information")
         print()
-        print("3. REFLECTION PATTERN")
-        print("   - Quality assessment and evaluation")
-        print("   - Iterative improvement and refinement")
-        print("   - Continuous optimization feedback")
+        print("QUALITY FEEDBACK LOOP")
+        print("   • Quality assessment and scoring")
+        print("   • Iterative improvement with feedback")
+        print("   • Continuous optimization until quality threshold met")
         print()
-        print("RESEARCH ENHANCEMENT:")
-        print("   - Real-time information gathering")
-        print("   - Current trends and data integration")
-        print("   - Enhanced content relevance and accuracy")
+        print("RESEARCH INTEGRATION")
+        print("   • Real-time information gathering")
+        print("   • Current trends and data integration")
+        print("   • Enhanced content relevance and accuracy")
         print()
         print("=" * 80)
     
-    def print_pattern_explanation(self, pattern: str):
-        """Print detailed explanation of a specific pattern."""
-        explanations = {
-            "routing": """
-ROUTING PATTERN IN ACTION:
-   The SmartRouter agent analyzes your request to determine:
-   - What type of content you need
-   - Which platforms are optimal for your message
-   - What content strategy will work best
-   - Whether research enhancement is needed
-   
-   This intelligent routing ensures the right content goes to the right platforms
-   with the right approach, maximizing engagement and effectiveness.
-""",
-            "parallelization": """
-PARALLELIZATION PATTERN IN ACTION:
-   Multiple specialized agents work on your content:
-   - X/Twitter Specialist - Optimizes for 280-character engagement
-   - LinkedIn Specialist - Creates professional thought leadership
-   - Instagram Specialist - Develops authentic storytelling
-   - Blog Specialist - Produces comprehensive informative content
-   
-   Each agent is an expert in their platform, ensuring optimal content
-   for each audience and format (executed sequentially for free tier).
-""",
-            "reflection": """
-REFLECTION PATTERN IN ACTION:  
-   The QualityReflector and ContentRefiner agents:
-   - Evaluate content quality across all platforms
-   - Assess research integration effectiveness
-   - Check for engagement potential and brand consistency
-   - Identify specific improvement opportunities
-   - Apply targeted refinements where needed
-   
-   This ensures high-quality, consistent content that meets
-   professional standards and maximizes performance.
-"""
+    def print_feature_explanation(self, features: List[str]):
+        """Print explanation of features being demonstrated."""
+        feature_explanations = {
+            "intelligent_platform_selection": """
+INTELLIGENT PLATFORM SELECTION:
+   The pipeline analyzes your request to automatically determine which platforms
+   would be most effective for your content, rather than generating for all platforms.""",
+            
+            "multi_platform_routing": """
+MULTI-PLATFORM ROUTING:
+   When multiple platforms are specified or implied, the system routes content
+   creation to multiple specialists simultaneously (sequential execution for free tier).""",
+            
+            "conditional_execution": """
+CONDITIONAL EXECUTION:
+   Only generates content for platforms the routing agent determines are optimal.
+   This saves API calls and focuses effort where it will be most effective.""",
+            
+            "research_enhancement": """
+RESEARCH ENHANCEMENT:
+   Integrates current information and trends to make content more relevant,
+   accurate, and valuable to your audience.""",
+            
+            "quality_feedback": """
+QUALITY FEEDBACK LOOP:
+   Evaluates generated content quality and iteratively improves it based on
+   specific feedback until it meets publication standards.""",
+            
+            "platform_optimization": """
+PLATFORM OPTIMIZATION:
+   Each platform has specialized agents that understand the unique requirements,
+   audience expectations, and best practices for that specific platform.""",
+            
+            "quality_assessment": """
+QUALITY ASSESSMENT:
+   Comprehensive evaluation of content across multiple dimensions including
+   engagement potential, platform fit, and value delivery."""
         }
-        print(explanations.get(pattern, ""))
+        
+        print("\n>> FEATURES BEING DEMONSTRATED:")
+        for feature in features:
+            if feature in feature_explanations:
+                print(feature_explanations[feature])
+        print()
     
     async def run_single_demo(self, demo_config: Dict[str, Any], demo_number: int):
-        """Run a single demo with detailed pattern highlighting."""
+        """Run a single demo with detailed feature highlighting."""
         print(f"\n>> DEMO {demo_number}: {demo_config['description']}")
         print(f"   Request: \"{demo_config['request']}\"")
-        print(f"   Patterns Highlighted: {', '.join(demo_config['patterns_highlighted'])}")
+        print(f"   Expected Platforms: {', '.join(demo_config['expected_platforms'])}")
         print("-" * 60)
         
-        # Explain patterns being demonstrated
-        for pattern in demo_config['patterns_highlighted']:
-            if pattern != 'research':  # Research is enhancement, not core pattern
-                self.print_pattern_explanation(pattern)
+        # Explain features being demonstrated
+        self.print_feature_explanation(demo_config['features_highlighted'])
         
-        print(">> EXECUTING PIPELINE...")
-        print("   This showcases all patterns in action - please wait...")
+        print(">> EXECUTING SMART ROUTING PIPELINE...")
+        print("   This may take 30-90 seconds due to multi-agent processing")
         print()
         
         start_time = time.time()
         
         try:
-            result = await create_content(demo_config['request'])
+            result = await create_smart_routed_content(demo_config['request'])
             end_time = time.time()
             
             print(">> DEMO COMPLETED SUCCESSFULLY!")
@@ -132,32 +138,30 @@ REFLECTION PATTERN IN ACTION:
             print(result)
             print("=" * 60)
             
-            # Highlight what patterns were demonstrated
-            print("\nPATTERN DEMONSTRATION RESULTS:")
-            if "routing" in demo_config['patterns_highlighted']:
-                print("   - ROUTING: Request analyzed and optimal platform strategy determined")
-            if "parallelization" in demo_config['patterns_highlighted']:
-                print("   - PARALLELIZATION: Multiple specialized agents created platform-specific content")
-            if "reflection" in demo_config['patterns_highlighted']:
-                print("   - REFLECTION: Quality assessed and improvements applied")
-            if "research" in demo_config['patterns_highlighted']:
-                print("   - RESEARCH: Current information integrated for relevance")
+            # Highlight what features were demonstrated
+            print("\n>> PIPELINE FEATURES DEMONSTRATED:")
+            print("   - Smart platform analysis and selection")
+            print("   - Conditional execution for optimal platforms only")
+            print("   - Research-enhanced content generation")
+            print("   - Quality assessment and feedback integration")
+            print("   - Platform-specific optimization")
             
         except Exception as e:
-            print(f"Error: Demo failed - {e}")
+            print(f"Demo failed - {e}")
+            print("   This may be due to API rate limits or configuration issues")
             return False
         
         return True
     
     async def run_comprehensive_demo(self):
-        """Run comprehensive demo of all patterns."""
+        """Run comprehensive demo of smart routing features."""
         if not check_environment():
             print("Environment check failed. Please configure your API keys.")
             return
         
         self.print_header()
         
-        print(">> STARTING COMPREHENSIVE AGENTIC PATTERNS DEMONSTRATION")
+        print(">> STARTING COMPREHENSIVE SMART ROUTING DEMONSTRATION")
         print()
         
         successful_demos = 0
@@ -167,33 +171,63 @@ REFLECTION PATTERN IN ACTION:
             if success:
                 successful_demos += 1
             
-            # Add delay between demos for free tier
+            # Add delay between demos for rate limiting
             if i < len(self.demo_requests):
-                print("\nAdding delay for API rate limiting...")
-                await asyncio.sleep(20)  # Longer delay between demos
+                print(f"\n⏳ Cooling down for API rate limiting (20 seconds)...")
+                await asyncio.sleep(20)
         
         print("\n" + "=" * 80)
         print("COMPREHENSIVE DEMO COMPLETED!")
         print(f"Successful Demos: {successful_demos}/{len(self.demo_requests)}")
         print()
-        print("AGENTIC DESIGN PATTERNS DEMONSTRATED:")
-        print("   - ROUTING - Smart request analysis and platform selection")
-        print("   - PARALLELIZATION - Multiple specialized content agents")
-        print("   - REFLECTION - Quality assessment and iterative improvement")
-        print()
-        print("RESEARCH ENHANCEMENT SHOWCASED:")
-        print("   - Real-time information gathering for current, relevant content")
+        print("SMART ROUTING FEATURES DEMONSTRATED:")
+        print("   - INTELLIGENT SELECTION - Smart request analysis and platform selection")
+        print("   - CONDITIONAL EXECUTION - Platform-specific content generation")
+        print("   - QUALITY FEEDBACK - Assessment and iterative improvement")
+        print("   - RESEARCH ENHANCED - Current information integration")
         print()
         print("KEY BENEFITS DEMONSTRATED:")
-        print("   - Intelligent content strategy through routing")
-        print("   - Platform-optimized content through specialization")  
-        print("   - High-quality output through reflection and refinement")
-        print("   - Current and relevant content through research integration")
+        print("   • More efficient API usage through smart routing")
+        print("   • Platform-optimized content through specialization")  
+        print("   • Higher quality output through feedback loops")
+        print("   • Current and relevant content through research integration")
+        print("   • Intelligent clarification handling for ambiguous requests")
         print()
         print("READY FOR PRODUCTION USE!")
         print("=" * 80)
 
 
 if __name__ == "__main__":
-    demo = AgenticPatternsDemo()
-    asyncio.run(demo.run_comprehensive_demo())
+    demo = SmartRoutingDemo()
+    
+    print("Starting Smart Routing Pipeline Demonstration")
+    print("   This demo showcases intelligent platform selection with conditional execution")
+    
+    # Check environment first
+    if not check_environment():
+        print("Environment check failed. Please configure your API keys.")
+        exit(1)
+    
+    # Ask user which demo to run
+    print("\nSelect demo type:")
+    print("1. Demo 1 - LinkedIn AI Business Content (Single Platform)")
+    print("2. Demo 2 - Instagram + X Productivity Content (Multi-Platform)")
+    print("3. Demo 3 - Blog Sustainable Tech Content (Long-Form)")
+    print("4. Comprehensive Demo (All Features)")
+    
+    choice = input("\nEnter your choice (1-4) or press Enter for Comprehensive Demo: ").strip()
+    
+    async def run_selected_demo():
+        demo_instance = SmartRoutingDemo()
+        
+        if choice == "1":
+            await demo_instance.run_single_demo(demo_instance.demo_requests[0], 1)
+        elif choice == "2":
+            await demo_instance.run_single_demo(demo_instance.demo_requests[1], 2)
+        elif choice == "3":
+            await demo_instance.run_single_demo(demo_instance.demo_requests[2], 3)
+        else:
+            # Default to comprehensive demo
+            await demo_instance.run_comprehensive_demo()
+    
+    asyncio.run(run_selected_demo())

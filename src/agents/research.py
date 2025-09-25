@@ -5,7 +5,6 @@ Provides current information with natural, conversational integration focus
 from google.adk.agents import LlmAgent
 from src.config.settings import GEMINI_TEXT_MODEL
 
-# Try to import google_search tool
 try:
     from google.adk.tools import google_search
     GOOGLE_SEARCH_AVAILABLE = True
