@@ -17,41 +17,29 @@ def check_environment() -> bool:
     # Load environment variables
     load_dotenv()
     
-    # Check Python version
-    if sys.version_info < (3, 8):
-        print(f"Error: Python {sys.version_info.major}.{sys.version_info.minor} - requires Python 3.8+")
-        return False
-    
-    # Test ADK imports
+    # Test required ADK imports
     try:
-        import google.adk
-        from google.adk.agents import LlmAgent, SequentialAgent
+        from google.adk.agents import LlmAgent
         from google.adk.runners import InMemoryRunner
         from google.genai import types
         print(">> Google ADK imported successfully")
     except ImportError as e:
         print(f"Error: Failed to import required ADK modules: {e}")
+        print("      Run: pip install google-adk")
         return False
     
-    # Check environment variables
+    # Check API key
     google_api_key = os.getenv("GOOGLE_API_KEY")
     if not google_api_key:
         print("Error: GOOGLE_API_KEY not found in environment variables")
-        print("      Please set GOOGLE_API_KEY in your .env file or environment")
+        print("      Please set GOOGLE_API_KEY in your .env file")
         return False
     
     print(">> GOOGLE_API_KEY configured")
     
-    # Check Gemini model configuration
+    # Show model configuration
     gemini_model = os.getenv("GEMINI_TEXT_MODEL", "gemini-2.5-flash")
     print(f">> GEMINI_TEXT_MODEL: {gemini_model}")
-    
-    # Test Google Search availability (optional)
-    try:
-        from google.adk.tools import google_search
-        print(">> Google Search tool available")
-    except ImportError:
-        print("Note: Google Search tool not available - will use simulated research")
     
     return True
 
@@ -70,8 +58,8 @@ def print_environment_info():
     else:
         print(f"Warning: Environment file not found: {env_file}")
     
-    # List available environment variables (without exposing sensitive data)
-    sensitive_keys = ['GOOGLE_API_KEY', 'API_KEY', 'SECRET', 'TOKEN']
+    # List Google/Gemini environment variables
+    sensitive_keys = ['API_KEY', 'SECRET', 'TOKEN']
     env_vars = []
     for key, value in os.environ.items():
         if key.startswith(('GOOGLE_', 'GEMINI_')):
@@ -98,8 +86,6 @@ if __name__ == "__main__":
     else:
         print("\nEnvironment validation failed!")
         print("\nPlease ensure:")
-        print("1. Python 3.8+ is installed")
-        print("2. Google ADK is installed: pip install google-adk")
-        print("3. GOOGLE_API_KEY is set in .env file or environment")
-        print("4. All required dependencies are installed")
+        print("1. Google ADK is installed: pip install google-adk")
+        print("2. GOOGLE_API_KEY is set in .env file")
         sys.exit(1)

@@ -4,6 +4,7 @@ Functions for parsing quality scores and managing feedback loops
 """
 import re
 from typing import Dict, Any, Optional, Tuple
+from src.config import QUALITY_SCORE_THRESHOLD
 
 
 def parse_quality_score(quality_result: str) -> float:
@@ -111,13 +112,13 @@ Please regenerate this content to address the specific issues identified in the 
     return prompt
 
 
-def is_score_acceptable(score: float, threshold: float = 6.5) -> bool:
+def is_score_acceptable(score: float, threshold: float = QUALITY_SCORE_THRESHOLD) -> bool:
     """
     Check if a quality score meets the acceptance threshold.
     
     Args:
         score: Quality score to check
-        threshold: Minimum acceptable score (default 6.5)
+        threshold: Minimum acceptable score (default from settings.py)
         
     Returns:
         True if score is acceptable, False otherwise
@@ -125,7 +126,8 @@ def is_score_acceptable(score: float, threshold: float = 6.5) -> bool:
     return score >= threshold
 
 
-def should_retry_generation(score: float, attempt: int, max_attempts: int = 3, threshold: float = 6.5) -> bool:
+def should_retry_generation(score: float, attempt: int, max_attempts: int = 3, 
+                           threshold: float = QUALITY_SCORE_THRESHOLD) -> bool:
     """
     Determine if content generation should be retried based on score and attempt count.
     
@@ -133,7 +135,7 @@ def should_retry_generation(score: float, attempt: int, max_attempts: int = 3, t
         score: Current quality score
         attempt: Current attempt number (1-indexed)
         max_attempts: Maximum allowed attempts
-        threshold: Minimum acceptable score
+        threshold: Minimum acceptable score (default from settings.py)
         
     Returns:
         True if should retry, False if should stop
@@ -154,6 +156,7 @@ def format_final_result_with_attempts(content: str, scores_history: list, attemp
         Formatted final result with attempt history
     """
     final_score = scores_history[-1] if scores_history else 0.0
+    threshold = QUALITY_SCORE_THRESHOLD
     
     result = f"""**=== FINAL CONTENT WITH QUALITY ASSURANCE ===**
 
@@ -161,13 +164,13 @@ def format_final_result_with_attempts(content: str, scores_history: list, attemp
 - Attempts Made: {attempts}
 - Final Score: {final_score:.1f}/10
 - Score History: {' → '.join(f'{s:.1f}' for s in scores_history)}
-- Status: {"✅ APPROVED" if final_score >= 6.5 else "⚠️ BEST EFFORT (Under Threshold)"}
+- Status: {"✅ APPROVED" if final_score >= threshold else "⚠️ BEST EFFORT (Under Threshold)"}
 
 **FINAL CONTENT**
 {content}
 
 **QUALITY NOTES**
-{"This content meets quality standards and is ready for publication." if final_score >= 6.5 else "This content was improved through multiple iterations but may need manual review before publication."}
+{"This content meets quality standards and is ready for publication." if final_score >= threshold else "This content was improved through multiple iterations but may need manual review before publication."}
 """
     
     return result

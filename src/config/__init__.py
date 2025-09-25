@@ -1,20 +1,15 @@
 """
 Configuration package for Smart Routing Social Media Content Pipeline
-Complete configuration supporting intelligent platform selection.
+Exports actively used settings and constants.
 """
 
 from .settings import (
     GOOGLE_API_KEY,
     GEMINI_TEXT_MODEL,
-    SOCIAL_MEDIA_CONFIGS,
-    BRAND_GUIDELINES,
-    QUALITY_THRESHOLDS,
-    SUPPORTED_PLATFORMS,
-    RATE_LIMIT_DELAY,
-    MAX_RETRIES,
-    get_platform_config,
-    get_all_platform_names,
-    validate_platform
+    QUALITY_SCORE_THRESHOLD,
+    MAX_QUALITY_ATTEMPTS,
+    RATE_LIMIT_DELAYS,
+    SUPPORTED_PLATFORMS
 )
 
 from .environment import check_environment
@@ -38,7 +33,7 @@ AGENTIC_PATTERNS = {
     },
     "reflection": {
         "enabled": True,
-        "iterations": 1,  # Number of reflection cycles
+        "iterations": 1,
         "description": "Quality assessment and iterative improvement"
     }
 }
@@ -48,7 +43,7 @@ RESEARCH_CONFIG = {
     "enabled": True,
     "search_queries_per_topic": 2,
     "max_sources": 3,
-    "fallback_mode": "strategic_analysis"  # When Google Search not available
+    "fallback_mode": "strategic_analysis"
 }
 
 # Smart routing specific configurations
@@ -62,32 +57,23 @@ ROUTING_CONFIG = {
         "enabled": True,
         "end_conversation": True,
         "message_template": "clarification_request"
-    },
-    "rate_limiting": {
-        "delay_between_platforms": 7,  # seconds
-        "cooling_period": 15  # seconds between user requests
     }
 }
 
 __all__ = [
     'GOOGLE_API_KEY',
     'GEMINI_TEXT_MODEL',
-    'SOCIAL_MEDIA_CONFIGS',
-    'BRAND_GUIDELINES', 
-    'QUALITY_THRESHOLDS',
+    'QUALITY_SCORE_THRESHOLD',
+    'MAX_QUALITY_ATTEMPTS',
+    'RATE_LIMIT_DELAYS',
     'SUPPORTED_PLATFORMS',
-    'RATE_LIMIT_DELAY',
-    'MAX_RETRIES',
     'APP_NAME',
     'USER_ID',
     'SESSION_ID',
     'AGENTIC_PATTERNS',
     'RESEARCH_CONFIG',
     'ROUTING_CONFIG',
-    'get_platform_config',
-    'get_all_platform_names',
-    'validate_platform',
     'check_environment'
 ]
 
-__version__ = "5.0.0"  # Smart routing version
+__version__ = "5.0.0"

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Smart Routing Social Media Content Pipeline
 Interactive showcase demonstrating intelligent platform selection
@@ -14,6 +13,7 @@ Usage: python main.py
 import asyncio
 import time
 from src.config.environment import check_environment
+from src.config import RATE_LIMIT_DELAYS
 from src.pipelines.smart_routing import create_smart_routed_content
 
 
@@ -87,8 +87,9 @@ async def interactive_smart_routing():
             print(f"\nError processing request: {e}")
             print("Please try again with a different request.")
         
-        print("\nCooling down for API rate limits (15 seconds)...")
-        await asyncio.sleep(15)
+        cooling_period = RATE_LIMIT_DELAYS["cooling_period"]
+        print(f"\nCooling down for API rate limits ({cooling_period} seconds)...")
+        await asyncio.sleep(cooling_period)
         print("Ready for next request!")
 
 

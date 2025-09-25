@@ -236,9 +236,7 @@ async def create_content(request: str) -> str:
     3. REFLECTION - Quality assessment and refinement
     """
     # This would be executed through the standard pipeline
-    # For direct execution, use the smart_routing pipeline instead
     return await create_smart_routed_content(request)
 
 
-# Import for circular dependency resolution
 from .smart_routing import create_smart_routed_content

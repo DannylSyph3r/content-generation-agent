@@ -27,6 +27,7 @@ from src.utils.quality import (
     format_regeneration_prompt,
     format_final_result_with_attempts
 )
+from src.config import QUALITY_SCORE_THRESHOLD, MAX_QUALITY_ATTEMPTS, RATE_LIMIT_DELAYS
 
 
 async def regenerate_content_with_feedback(
@@ -95,8 +96,8 @@ async def quality_feedback_loop(
     research_data: str,
     user_id: str, 
     session_id: str,
-    max_attempts: int = 3,
-    score_threshold: float = 6.5
+    max_attempts: int = MAX_QUALITY_ATTEMPTS,
+    score_threshold: float = QUALITY_SCORE_THRESHOLD
 ) -> Tuple[Dict[str, str], List[float], int]:
     """
     Quality feedback loop that regenerates content until acceptable or max attempts reached.
@@ -106,8 +107,8 @@ async def quality_feedback_loop(
         research_data: Research data for context
         user_id: User identifier  
         session_id: Session identifier
-        max_attempts: Maximum regeneration attempts
-        score_threshold: Minimum acceptable quality score
+        max_attempts: Maximum regeneration attempts (from settings)
+        score_threshold: Minimum acceptable quality score (from settings)
         
     Returns:
         Tuple of (final_content_dict, scores_history, attempts_made)
@@ -179,7 +180,7 @@ async def create_smart_routed_content(request: str) -> str:
     2. Parse decision and check for clarification needs
     3. Research enhancement for selected platforms (1 API call) 
     4. Conditional content generation (N API calls based on selection)
-    5. Quality feedback loop with regeneration (up to 3 iterations)
+    5. Quality feedback loop with regeneration (up to MAX_QUALITY_ATTEMPTS iterations)
     6. Final synthesis with quality assessment (1 API call)
     """
     try:
@@ -198,8 +199,8 @@ async def create_smart_routed_content(request: str) -> str:
             smart_router, user_id, session_id, request
         )
         
-        # Add rate limiting delay
-        await asyncio.sleep(4)
+        # Rate limiting after routing
+        await asyncio.sleep(RATE_LIMIT_DELAYS["after_routing"])
         
         # Step 2: Parse Routing Decision
         print(">> DECISION PARSING - Processing platform selection")
@@ -232,7 +233,7 @@ async def create_smart_routed_content(request: str) -> str:
             research_agent, user_id, session_id, research_prompt
         )
         
-        await asyncio.sleep(2)
+        await asyncio.sleep(RATE_LIMIT_DELAYS["after_research"])
         
         # Step 4: Conditional Content Generation
         print("\n>> CONTENT GENERATION - Creating platform-specific content")
@@ -266,7 +267,7 @@ Create {platform} content that incorporates the research insights naturally whil
                     )
                     generated_content[platform] = content
                     
-                    await asyncio.sleep(3)  # Rate limiting
+                    await asyncio.sleep(RATE_LIMIT_DELAYS["between_platforms"])
                     
                 except Exception as e:
                     print(f"   ! Failed to generate {platform} content: {e}")
